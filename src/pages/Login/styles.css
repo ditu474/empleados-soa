@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login__input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.login__button {
+  margin-top: 3rem !important;
+}
