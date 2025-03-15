@@ -6,7 +6,7 @@ import useLogin from "./useLogin";
 
 import "./styles.css";
 
-const Login = () => {
+const Login = ({ displayRegisterPage }) => {
   const { user, password, handleChangeUser, handleChangePassword, isEmpty } =
     useLogin();
 
@@ -22,7 +22,7 @@ const Login = () => {
           Ingresar
         </Typography>
         <TextField
-          label="Usuario"
+          label="Documento"
           variant="outlined"
           className="login__input"
           value={user}
@@ -44,7 +44,9 @@ const Login = () => {
         >
           Entrar
         </Button>
-        <Button variant="text">Registrarme</Button>
+        <Button variant="text" onClick={displayRegisterPage}>
+          Registrarme
+        </Button>
       </div>
     </div>
   );

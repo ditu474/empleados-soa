@@ -1,0 +1,20 @@
+.register__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 1rem;
+  overflow: auto;
+}
+
+.register__input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.register__button {
+  margin-top: 3rem !important;
+}

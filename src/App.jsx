@@ -1,9 +1,19 @@
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+
 import Typography from "@mui/material/Typography";
+
+import { useState } from "react";
 
 import "./App.css";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(true);
+
+  const handleDisplayLoginPage = () => {
+    setIsLogin((prevState) => !prevState);
+  };
+
   return (
     <>
       <div className="login__header">
@@ -11,7 +21,11 @@ function App() {
           Gestión De Empleados
         </Typography>
       </div>
-      <Login />
+      {isLogin ? (
+        <Login displayRegisterPage={handleDisplayLoginPage} />
+      ) : (
+        <Register displayLoginPage={handleDisplayLoginPage} />
+      )}
     </>
   );
 }
