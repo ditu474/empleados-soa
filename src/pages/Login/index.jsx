@@ -3,16 +3,17 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import useLogin from "./useLogin";
+import useLoggedUser from "@/hooks/useLoggedUser";
 
 import "./styles.css";
 
 const Login = ({ displayRegisterPage }) => {
   const { user, password, handleChangeUser, handleChangePassword, isEmpty } =
     useLogin();
+  const setUser = useLoggedUser((state) => state.setUser);
 
   const handleSubmit = () => {
-    console.log("User:", user);
-    console.log("Password", password);
+    setUser({ user, password });
   };
 
   return (

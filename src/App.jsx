@@ -1,5 +1,7 @@
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import Home from "@/pages/Home";
+import useLoggedUser from "@/hooks/useLoggedUser";
 
 import Typography from "@mui/material/Typography";
 
@@ -9,10 +11,13 @@ import "./App.css";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
+  const user = useLoggedUser((state) => state.user);
 
   const handleDisplayLoginPage = () => {
     setIsLogin((prevState) => !prevState);
   };
+
+  if (user) return <Home />;
 
   return (
     <>
