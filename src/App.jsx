@@ -17,7 +17,7 @@ function App() {
     setIsLogin((prevState) => !prevState);
   };
 
-  if (user) return <Home />;
+  return <Home />;
 
   return (
     <>
