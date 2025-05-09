@@ -4,6 +4,7 @@ import useGetAllEmpleados from "@/hooks/useGetAllEmpleados";
 import FullScreenProgressIndicator from "@/components/FullScreenProgressIndicator";
 import Table from "@/components/Table";
 import FullScreenBox from "@/components/FullScreenBox";
+import NewEmployee from "./NewEmployee";
 
 const Home = () => {
   const { data, isLoading, error } = useGetAllEmpleados();
@@ -26,11 +27,7 @@ const Home = () => {
       <Typography variant="h3" gutterBottom sx={{ textAlign: "center" }}>
         Empleados
       </Typography>
-      <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Button variant="contained" color="primary">
-          Crear Empleado
-        </Button>
-      </Box>
+      <NewEmployee />
       <Table
         titles={["Cédula", "Nombre", "Fecha de ingreso", "Cargo"]}
         rows={data.map((empleado) => ({
