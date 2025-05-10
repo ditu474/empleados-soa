@@ -8,11 +8,10 @@ import {
   TableCell,
   TableBody,
   Stack,
-  IconButton,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteEmployee from "./DeleteEmployee";
+import EditEmployee from "./EditEmployee";
 
 const Table = ({ titles, rows }) => (
   <TableContainer component={Paper}>
@@ -43,9 +42,7 @@ const Table = ({ titles, rows }) => (
             <TableCell key={`${row.id}-actions`} align="right">
               <Stack direction="row" spacing={1} justifyContent="center">
                 <DeleteEmployee employeeId={row.id} />
-                <IconButton aria-label="delete" color="info">
-                  <EditIcon />
-                </IconButton>
+                <EditEmployee employeeCedula={row.cedula} />
               </Stack>
             </TableCell>
           </TableRow>

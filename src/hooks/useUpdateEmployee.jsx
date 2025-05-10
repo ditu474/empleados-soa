@@ -5,6 +5,7 @@ const useUpdateEmployee = () => {
 
   return useMutation({
     mutationFn: async ({
+      id,
       cedula,
       nombre,
       fechaIngreso,
@@ -13,7 +14,7 @@ const useUpdateEmployee = () => {
       nombreCargo,
     }) => {
       const response = await fetch(
-        `http://localhost:8080/api/empleado/actualizar/${cedula}`,
+        `http://localhost:8080/api/empleado/actualizar/${id}`,
         {
           method: "PUT",
           headers: {

@@ -23,7 +23,7 @@ const Home = () => {
   }
 
   return (
-    <FullScreenBox>
+    <>
       <Typography variant="h3" gutterBottom sx={{ textAlign: "center" }}>
         Empleados
       </Typography>
@@ -33,6 +33,7 @@ const Home = () => {
         rows={data.map((empleado) => ({
           id: empleado.id,
           avatar: empleado.rutaFoto,
+          cedula: empleado.cedula,
           values: [
             empleado.cedula,
             empleado.nombre,
@@ -41,7 +42,7 @@ const Home = () => {
           ],
         }))}
       />
-    </FullScreenBox>
+    </>
   );
 };
 

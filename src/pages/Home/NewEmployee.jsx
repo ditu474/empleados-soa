@@ -43,15 +43,17 @@ const NewEmployee = () => {
           Crear Empleado
         </Button>
       </Box>
-      <EmployeeDialog
-        open={open}
-        onClose={handleClose}
-        onSend={handleSend}
-        title="Crear Empleado"
-        actionName="Crear"
-        errorMessage={error?.message}
-        loading={loading}
-      />
+      {open && (
+        <EmployeeDialog
+          open={open}
+          onClose={handleClose}
+          onSend={handleSend}
+          title="Crear Empleado"
+          actionName="Crear"
+          errorMessage={error?.message}
+          loading={loading}
+        />
+      )}
     </>
   );
 };

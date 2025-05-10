@@ -11,8 +11,8 @@ export const validateCedula = (cedula) => {
   if (!validator.isNumeric(cedula)) {
     return "La cédula solo puede contener números";
   }
-  if (cedula.length > 15) {
-    return "La cédula no puede tener más de 15 dígitos";
+  if (cedula.length > 13) {
+    return "La cédula no puede tener más de 13 dígitos";
   }
 
   return true;
@@ -25,8 +25,8 @@ export const validateNombre = (nombre) => {
   if (nombre.length < 3) {
     return "El nombre debe tener al menos 3 caracteres";
   }
-  if (nombre.length > 50) {
-    return "El nombre no puede tener más de 50 caracteres";
+  if (nombre.length > 20) {
+    return "El nombre no puede tener más de 20 caracteres";
   }
   if (!validator.isAlpha(nombre, "es-ES", { ignore: " " })) {
     return "El nombre solo puede contener letras y espacios";
