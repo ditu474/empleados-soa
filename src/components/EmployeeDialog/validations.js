@@ -39,15 +39,12 @@ export const validateFechaIngreso = (fechaIngreso) => {
   if (!fechaIngreso) {
     return "La fecha de ingreso es requerida";
   }
-  if (!validator.isDate(fechaIngreso)) {
-    return "La fecha de ingreso no es válida";
-  }
 
   return true;
 };
 
 export const validateUrlFoto = (urlFoto) => {
-  if (!validator.isURL(urlFoto)) {
+  if (urlFoto && !validator.isURL(urlFoto)) {
     return "La URL de la foto no es válida";
   }
 
@@ -58,7 +55,7 @@ export const validateCargo = (cargo) => {
   if (!cargo) {
     return "El cargo es requerido";
   }
-  if (!Object.keys(CARGOS).includes(cargo)) {
+  if (!CARGOS[cargo]) {
     return "El cargo no es válido";
   }
 

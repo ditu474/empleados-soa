@@ -7,14 +7,15 @@ import {
   DialogContentText,
   InputLabel,
   MenuItem,
-  Select,
   FormControl,
   Button,
+  FormHelperText,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { useEffect } from "react";
 import {
   validateCargo,
   validateCedula,
@@ -38,16 +39,27 @@ const EmployeeDialog = ({
   actionName,
   errorMessage,
   defaultValues,
+  loading,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm({
     defaultValues: {
       cedula: defaultValues?.cedula || "",
       nombre: defaultValues?.nombre || "",
       urlFoto: defaultValues?.urlFoto || "",
       fechaIngreso: defaultValues?.fechaIngreso || null,
-      cargo: defaultValues?.cargo || "",
+      cargo: defaultValues?.cargo || 1,
     },
   });
+
+  useEffect(() => {
+    if (!open) reset();
+  }, [open]);
 
   return (
     <Dialog
@@ -68,8 +80,8 @@ const EmployeeDialog = ({
       )}
       <DialogContent>
         <TextField
+          disabled={loading}
           autoFocus
-          required
           margin="dense"
           id="cedula"
           name="cedula"
@@ -77,10 +89,12 @@ const EmployeeDialog = ({
           type="text"
           fullWidth
           variant="standard"
-          {...register("cedula", { required: true, validate: validateCedula })}
+          error={!!errors.cedula}
+          helperText={errors.cedula ? errors.cedula.message : ""}
+          {...register("cedula", { validate: validateCedula })}
         />
         <TextField
-          required
+          disabled={loading}
           margin="dense"
           id="nombre"
           name="nombre"
@@ -88,9 +102,12 @@ const EmployeeDialog = ({
           type="text"
           fullWidth
           variant="standard"
-          {...register("nombre", { required: true, validate: validateNombre })}
+          error={!!errors.nombre}
+          helperText={errors.nombre ? errors.nombre.message : ""}
+          {...register("nombre", { validate: validateNombre })}
         />
         <TextField
+          disabled={loading}
           margin="dense"
           id="urlFoto"
           name="urlFoto"
@@ -98,42 +115,61 @@ const EmployeeDialog = ({
           type="text"
           fullWidth
           variant="standard"
+          error={!!errors.urlFoto}
+          helperText={errors.urlFoto ? errors.urlFoto.message : ""}
           {...register("urlFoto", { validate: validateUrlFoto })}
         />
         <InputLabel htmlFor="date-picker" sx={{ marginTop: 3 }}>
           Fecha de ingreso*
         </InputLabel>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            id="date-picker"
-            disableFuture
-            minDate="2024-01-01"
-            {...register("fechaIngreso", {
-              required: true,
-              validate: validateFechaIngreso,
-            })}
-          />
-        </LocalizationProvider>
+        <Controller
+          name="fechaIngreso"
+          control={control}
+          defaultValue={defaultValues?.fechaIngreso || null}
+          rules={{ validate: validateFechaIngreso }}
+          render={({ field }) => (
+            <>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker {...field} disableFuture disabled={loading} />
+              </LocalizationProvider>
+              {errors.fechaIngreso && (
+                <FormHelperText error>
+                  {errors.fechaIngreso.message}
+                </FormHelperText>
+              )}
+            </>
+          )}
+        />
         <FormControl fullWidth sx={{ marginTop: 3 }}>
-          <InputLabel id="select-cargo-label">Cargo</InputLabel>
-          <Select
-            labelId="select-cargo-label"
+          <TextField
+            required
+            disabled={loading}
+            margin="dense"
             id="select-cargo"
             label="Cargo"
             name="cargo"
-            {...register("cargo", { required: true, validate: validateCargo })}
+            select
+            fullWidth
+            defaultValue={defaultValues?.cargo || 1}
+            error={!!errors.cargo}
+            helperText={errors.cargo ? errors.cargo.message : ""}
+            {...register("cargo", { validate: validateCargo })}
           >
             {Object.entries(CARGOS).map(([key, value]) => (
               <MenuItem key={key} value={key}>
                 {value}
               </MenuItem>
             ))}
-          </Select>
+          </TextField>
         </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cerrar</Button>
-        <Button type="submit">{actionName}</Button>
+        <Button onClick={onClose} disabled={loading}>
+          Cerrar
+        </Button>
+        <Button type="submit" disabled={loading}>
+          {actionName}
+        </Button>
       </DialogActions>
     </Dialog>
   );

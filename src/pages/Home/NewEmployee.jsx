@@ -1,10 +1,14 @@
 import { Button, Box } from "@mui/material";
 import { useState } from "react";
+import dayjs from "dayjs";
 
-import EmployeeDialog from "@/components/EmployeeDialog";
+import EmployeeDialog, { CARGOS } from "@/components/EmployeeDialog";
+import useCreateEmployee from "@/hooks/useCreateEmployee";
 
 const NewEmployee = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { mutateAsync: createEmployee, error } = useCreateEmployee();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -15,8 +19,21 @@ const NewEmployee = () => {
   };
 
   const handleSend = (formData) => {
-    console.log(formData);
-    handleClose();
+    const newEmployee = {
+      cedula: formData.cedula,
+      nombre: formData.nombre,
+      rutaFoto: formData.urlFoto,
+      fechaIngreso: dayjs(formData.fechaIngreso).format("DD-MM-YYYY"),
+      nombreCargo: CARGOS[formData.cargo],
+    };
+    setLoading(true);
+    createEmployee(newEmployee)
+      .then(() => {
+        handleClose();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -32,7 +49,8 @@ const NewEmployee = () => {
         onSend={handleSend}
         title="Crear Empleado"
         actionName="Crear"
-        errorMessage="Error"
+        errorMessage={error?.message}
+        loading={loading}
       />
     </>
   );
