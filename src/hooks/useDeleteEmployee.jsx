@@ -4,9 +4,9 @@ const useDeleteEmployee = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ cedula }) => {
+    mutationFn: async (employeeId) => {
       const response = await fetch(
-        `http://localhost:8080/api/empleado/eliminar/${cedula}`,
+        `http://localhost:8080/api/empleado/eliminar/${employeeId}`,
         {
           method: "DELETE",
         },
@@ -15,15 +15,8 @@ const useDeleteEmployee = () => {
       if (!response.ok) {
         throw new Error("Error deleting empleado");
       }
-
-      return { cedula };
     },
-    onSuccess: ({ cedula }) => {
-      queryClient.invalidateQueries({
-        queryKey: ["empleados", cedula],
-        exact: true,
-      });
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["empleados"],
         exact: true,

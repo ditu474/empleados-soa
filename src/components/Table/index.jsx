@@ -10,8 +10,9 @@ import {
   Stack,
   IconButton,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteEmployee from "./DeleteEmployee";
 
 const Table = ({ titles, rows }) => (
   <TableContainer component={Paper}>
@@ -41,10 +42,8 @@ const Table = ({ titles, rows }) => (
             ))}
             <TableCell key={`${row.id}-actions`} align="right">
               <Stack direction="row" spacing={1} justifyContent="center">
-                <IconButton aria-label="delete" color="primary">
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton aria-label="delete" color="primary">
+                <DeleteEmployee employeeId={row.id} />
+                <IconButton aria-label="delete" color="info">
                   <EditIcon />
                 </IconButton>
               </Stack>
