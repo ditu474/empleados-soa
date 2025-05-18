@@ -1,7 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-const useRegister = () =>
-  useQuery({
+import useLogin from "./useLogin";
+
+const useRegister = () => {
+  const { mutateAsync: login } = useLogin();
+
+  return useMutation({
     queryKey: ["register"],
     queryFn: async ({
       numeroIdentificacion,
@@ -35,11 +39,14 @@ const useRegister = () =>
         throw new Error("Error Registering");
       }
 
+      await login({ email, contrasena });
+
       return response.json();
     },
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
+};
 
 export default useRegister;

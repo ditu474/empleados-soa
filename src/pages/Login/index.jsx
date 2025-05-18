@@ -1,19 +1,27 @@
+import { useForm } from "react-hook-form";
+
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import useLogin from "@/hooks/useLogin";
+import { CircularProgress } from "@mui/material";
 
-import useLogin from "./useLogin";
-import useLoggedUser from "@/hooks/useLoggedUser";
+import { validateEmail, validateContrasena } from "@/validators";
 
 import "./styles.css";
 
 const Login = ({ displayRegisterPage }) => {
-  const { user, password, handleChangeUser, handleChangePassword, isEmpty } =
-    useLogin();
-  const setUser = useLoggedUser((state) => state.setUser);
+  const { register, handleSubmit, reset } = useForm();
+  const { mutateAsync, isLoading } = useLogin();
 
-  const handleSubmit = () => {
-    setUser({ user, password });
+  const handleLogin = ({ email, contrasena }) => {
+    mutateAsync({ email, contrasena })
+      .catch((err) => {
+        console.error(err);
+      })
+      .then(() => {
+        reset();
+      });
   };
 
   return (
@@ -23,29 +31,43 @@ const Login = ({ displayRegisterPage }) => {
           Ingresar
         </Typography>
         <TextField
-          label="Documento"
+          autoFocus
+          disabled={isLoading}
+          label="Correo"
+          type="email"
           variant="outlined"
           className="login__input"
-          value={user}
-          onChange={handleChangeUser}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email.message : ""}
+          {...register("email", { validate: validateEmail })}
         />
         <TextField
+          disabled={isLoading}
           label="Contraseña"
           variant="outlined"
           type="password"
           className="login__input"
-          value={password}
-          onChange={handleChangePassword}
+          error={!!errors.contrasena}
+          helperText={errors.contrasena ? errors.contrasena.message : ""}
+          {...register("contrasena", { validate: validateContrasena })}
         />
         <Button
           variant="contained"
           className="login__button"
-          disabled={isEmpty}
-          onClick={handleSubmit}
+          onClick={handleSubmit(handleLogin)}
+          disabled={isLoading}
         >
-          Entrar
+          {isLoading ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            "Iniciar Sesión"
+          )}
         </Button>
-        <Button variant="text" onClick={displayRegisterPage}>
+        <Button
+          variant="text"
+          onClick={displayRegisterPage}
+          disabled={isLoading}
+        >
           Registrarme
         </Button>
       </div>

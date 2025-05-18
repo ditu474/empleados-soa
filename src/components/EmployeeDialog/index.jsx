@@ -18,11 +18,11 @@ import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
 import {
   validateCargo,
-  validateCedula,
   validateFechaIngreso,
   validateNombre,
   validateUrlFoto,
 } from "./validations";
+import { validateCedula } from "@/validators";
 
 export const CARGOS = {
   1: "Scrum Master",

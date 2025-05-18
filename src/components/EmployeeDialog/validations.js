@@ -1,23 +1,6 @@
 import validator from "validator";
 import { CARGOS } from "./index.jsx";
 
-export const validateCedula = (cedula) => {
-  if (!cedula) {
-    return "La cédula es requerida";
-  }
-  if (cedula.length < 6) {
-    return "La cédula debe tener al menos 6 dígitos";
-  }
-  if (!validator.isNumeric(cedula)) {
-    return "La cédula solo puede contener números";
-  }
-  if (cedula.length > 13) {
-    return "La cédula no puede tener más de 13 dígitos";
-  }
-
-  return true;
-};
-
 export const validateNombre = (nombre) => {
   if (!nombre) {
     return "El nombre es requerido";

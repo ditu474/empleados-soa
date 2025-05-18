@@ -1,9 +1,8 @@
-import { Typography, Button, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import useGetAllEmpleados from "@/hooks/useGetAllEmpleados";
 import FullScreenProgressIndicator from "@/components/FullScreenProgressIndicator";
 import Table from "@/components/Table";
-import FullScreenBox from "@/components/FullScreenBox";
 import NewEmployee from "./NewEmployee";
 
 const Home = () => {

@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import useLoggedUser from "./useLoggedUser";
 
 const useLogin = () => {
-  return useQuery({
+  return useMutation({
     queryKey: ["login"],
     queryFn: async ({ email, contrasena }) => {
       const response = await fetch("http://localhost:8080/api/user/login", {
