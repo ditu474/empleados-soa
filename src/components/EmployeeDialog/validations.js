@@ -25,7 +25,7 @@ export const validateNombre = (nombre) => {
   if (nombre.length < 3) {
     return "El nombre debe tener al menos 3 caracteres";
   }
-  if (nombre.length > 20) {
+  if (nombre.trim().length > 20) {
     return "El nombre no puede tener más de 20 caracteres";
   }
   if (!validator.isAlpha(nombre, "es-ES", { ignore: " " })) {

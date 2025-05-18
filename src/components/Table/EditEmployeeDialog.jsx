@@ -27,8 +27,8 @@ const EditEmployeeDialog = ({ employeeId, onClose }) => {
     const newEmployee = {
       id: employee.id,
       cedula: formData.cedula,
-      nombre: formData.nombre,
-      rutaFoto: formData.urlFoto,
+      nombre: formData.nombre.trim(),
+      rutaFoto: formData.urlFoto.trim(),
       fechaIngreso: dayjs(formData.fechaIngreso).format("DD-MM-YYYY"),
       idCargo: formData.cargo,
       nombreCargo: CARGOS[formData.cargo],

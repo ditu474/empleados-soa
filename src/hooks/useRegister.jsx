@@ -1,26 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import useLoggedUser from "./useLoggedUser";
-
-const useCreateEmployee = () => {
+const useRegister = () => {
   const queryClient = useQueryClient();
-  const user = useLoggedUser((state) => state.user);
 
   return useMutation({
     mutationFn: async ({
-      cedula,
+      numeroIdentificacion,
       nombre,
-      fechaIngreso,
-      rutaFoto,
-      nombreCargo,
+      primerApellido,
+      segundoApellido,
+      telefono,
+      email,
+      contrasena,
+      rol = "ADMIN",
     }) => {
       const response = await fetch(
-        "http://localhost:8080/api/empleado/guardar",
+        "http://localhost:8080/api/empleado/guardar/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
             cedula,
@@ -45,4 +44,4 @@ const useCreateEmployee = () => {
     },
   });
 };
-export default useCreateEmployee;
+export default useRegister;

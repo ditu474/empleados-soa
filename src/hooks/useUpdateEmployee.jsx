@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useLoggedUser from "./useLoggedUser";
 
 const useUpdateEmployee = () => {
   const queryClient = useQueryClient();
+  const user = useLoggedUser((state) => state.user);
 
   return useMutation({
     mutationFn: async ({
@@ -19,6 +21,7 @@ const useUpdateEmployee = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
             cedula,

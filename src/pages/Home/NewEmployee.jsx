@@ -21,8 +21,8 @@ const NewEmployee = () => {
   const handleSend = (formData) => {
     const newEmployee = {
       cedula: formData.cedula,
-      nombre: formData.nombre,
-      rutaFoto: formData.urlFoto,
+      nombre: formData.nombre.trim(),
+      rutaFoto: formData.urlFoto.trim(),
       fechaIngreso: dayjs(formData.fechaIngreso).format("DD-MM-YYYY"),
       nombreCargo: CARGOS[formData.cargo],
     };
