@@ -21,7 +21,12 @@ const useLogin = () => {
         throw new Error("Error Logging In");
       }
 
-      return response.json();
+      const data = await response.json();
+      if (+data.status !== 200) {
+        throw new Error(data.description);
+      }
+
+      return data;
     },
     onSuccess: (user) => {
       useLoggedUser.setState({ user });

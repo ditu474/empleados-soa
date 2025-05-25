@@ -38,9 +38,15 @@ const useRegister = () => {
         throw new Error("Error Registering");
       }
 
+      const data = await response.json();
+      debugger;
+      if (+data.status !== 200) {
+        throw new Error(data.description);
+      }
+
       await login({ email, contrasena });
 
-      return response.json();
+      return data;
     },
     staleTime: Infinity,
     cacheTime: Infinity,

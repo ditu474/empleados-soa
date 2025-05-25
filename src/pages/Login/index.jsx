@@ -17,7 +17,7 @@ const Login = ({ displayRegisterPage }) => {
     reset,
     formState: { errors },
   } = useForm();
-  const { mutateAsync, isLoading, isError } = useLogin();
+  const { mutateAsync, isLoading, isError, error } = useLogin();
 
   const handleLogin = ({ email, contrasena }) => {
     mutateAsync({ email, contrasena })
@@ -56,6 +56,11 @@ const Login = ({ displayRegisterPage }) => {
           helperText={errors.contrasena ? errors.contrasena.message : ""}
           {...register("contrasena", { validate: validateContrasena })}
         />
+        {isError && (
+          <Typography variant="body2" color="error">
+            {error.message || "Error al iniciar sesión, revisa tus datos."}
+          </Typography>
+        )}
         <Button
           variant="contained"
           className="login__button"
@@ -75,11 +80,6 @@ const Login = ({ displayRegisterPage }) => {
         >
           Registrarme
         </Button>
-        {isError && (
-          <Typography variant="body2" color="error">
-            Error al iniciar sesión. Por favor, verifica tus credenciales.
-          </Typography>
-        )}
       </div>
     </div>
   );

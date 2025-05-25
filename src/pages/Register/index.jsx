@@ -25,7 +25,7 @@ const Register = ({ displayLoginPage }) => {
     getValues,
     formState: { errors },
   } = useForm();
-  const { mutateAsync, isLoading } = useRegister();
+  const { mutateAsync, isLoading, isError, error } = useRegister();
 
   const handleRegister = ({
     numeroIdentificacion,
@@ -45,11 +45,11 @@ const Register = ({ displayLoginPage }) => {
       email,
       contrasena,
     })
-      .catch((err) => {
-        console.error(err);
-      })
       .then(() => {
         reset();
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 
@@ -153,6 +153,11 @@ const Register = ({ displayLoginPage }) => {
             ),
         })}
       />
+      {isError && (
+        <Typography variant="body2" color="error">
+          {error.message || "Error al iniciar sesión, revisa tus datos."}
+        </Typography>
+      )}
       <Button
         variant="contained"
         className="register__button"
