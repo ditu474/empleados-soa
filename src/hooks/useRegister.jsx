@@ -35,7 +35,9 @@ const useRegister = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Error Registering");
+        throw new Error(
+          "Ha ocurrido un error al registrar el usuario, por favor intente con otro email o documento",
+        );
       }
 
       const data = await response.json();
