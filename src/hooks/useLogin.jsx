@@ -4,8 +4,7 @@ import useLoggedUser from "./useLoggedUser";
 
 const useLogin = () => {
   return useMutation({
-    queryKey: ["login"],
-    queryFn: async ({ email, contrasena }) => {
+    mutationFn: async ({ email, contrasena }) => {
       const response = await fetch("http://localhost:8080/api/user/login", {
         method: "POST",
         headers: {

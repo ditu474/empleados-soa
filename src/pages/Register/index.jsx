@@ -18,7 +18,13 @@ import {
 import "./styles.css";
 
 const Register = ({ displayLoginPage }) => {
-  const { register, handleSubmit, reset, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm();
   const { mutateAsync, isLoading } = useRegister();
 
   const handleRegister = ({

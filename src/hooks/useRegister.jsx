@@ -6,8 +6,7 @@ const useRegister = () => {
   const { mutateAsync: login } = useLogin();
 
   return useMutation({
-    queryKey: ["register"],
-    queryFn: async ({
+    mutationFn: async ({
       numeroIdentificacion,
       nombre,
       primerApellido,

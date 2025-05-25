@@ -11,16 +11,21 @@ import { validateEmail, validateContrasena } from "@/validators";
 import "./styles.css";
 
 const Login = ({ displayRegisterPage }) => {
-  const { register, handleSubmit, reset } = useForm();
-  const { mutateAsync, isLoading } = useLogin();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const { mutateAsync, isLoading, isError } = useLogin();
 
   const handleLogin = ({ email, contrasena }) => {
     mutateAsync({ email, contrasena })
-      .catch((err) => {
-        console.error(err);
-      })
       .then(() => {
         reset();
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 
@@ -70,6 +75,11 @@ const Login = ({ displayRegisterPage }) => {
         >
           Registrarme
         </Button>
+        {isError && (
+          <Typography variant="body2" color="error">
+            Error al iniciar sesión. Por favor, verifica tus credenciales.
+          </Typography>
+        )}
       </div>
     </div>
   );
