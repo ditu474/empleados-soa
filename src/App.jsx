@@ -5,13 +5,19 @@ import useLoggedUser from "@/hooks/useLoggedUser";
 
 import Typography from "@mui/material/Typography";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./App.css";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const user = useLoggedUser((state) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      setIsLogin(true);
+    }
+  }, [user]);
 
   const handleDisplayLoginPage = () => {
     setIsLogin((prevState) => !prevState);
